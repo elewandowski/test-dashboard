@@ -2,6 +2,7 @@ module.exports = {
     extends: ['eslint:recommended'],
     parserOptions: {
         sourceType: 'script',
+        ecmaVersion: 8,
         ecmaFeatures: {
             jsx: true,
         },

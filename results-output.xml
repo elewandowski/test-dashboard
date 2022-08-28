@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="129.3960" tests="20" failures="1">
+  <testsuite name="Root Suite" timestamp="2022-08-28T10:16:47" tests="0" file="cypress/integration/blocks/text.ordered-list.spec.js" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="Text - ordered list (Block level)" timestamp="2022-08-28T10:16:49" tests="20" time="129.3960" failures="1">
+    <testcase name="Text - ordered list (Block level) is flaky" time="32.0560" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="8.5120" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="6.0610" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="5.8890" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.5560" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.4420" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.4940" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.5240" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.6580" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.8390" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.8450" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.9820" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.4840" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.5370" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="5.2950" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="5.7510" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.2020" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="4.1050" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="5.0010" classname="is flaky">
+    </testcase>
+    <testcase name="Text - ordered list (Block level) is flaky" time="6.1630" classname="is flaky">
+      <failure message="expected 0.49797727318991925 to be above 0.5" type="AssertionError"><![CDATA[AssertionError: expected 0.49797727318991925 to be above 0.5
+    at Context.eval (http://localhost:9666/__cypress/tests?p=cypress/integration/blocks/text.ordered-list.spec.js:115:22)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

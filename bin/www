@@ -26,9 +26,23 @@ let server = http.createServer(app)
  */
 
 server.listen(port)
-console.log('after server.listen')
 server.on('error', onError)
 server.on('listening', onListening)
+
+// Using a single function to handle multiple signals
+function handleProcessSignals(signal) {
+    console.log(`Received ${signal}. Ending the process.`)
+
+    server.close()
+    process.exit(0)
+}
+
+process.on('SIGINT', handleProcessSignals)
+process.on('SIGTERM', handleProcessSignals)
+process.on('exit', function () {
+    // You need to use a synchronous, blocking function, here.
+    // Not streams or even console.log, which are non-blocking.
+})
 
 /**
  * Normalize a port into a number, string, or false.
