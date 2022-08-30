@@ -11,14 +11,13 @@ const testRunsRouter = require('./routes/test-runs')
 
 const app = express()
 
-const mongoURL = 'mongodb://localhost:27017/test-dashb-db'
+const mongoURL = 'mongodb://localhost:27017/test-dashboard'
 
 async function main() {
   await mongoose.connect(mongoURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-
   // view engine setup
   app.set('views', path.join(__dirname, 'views'))
   app.set('view engine', 'pug')
