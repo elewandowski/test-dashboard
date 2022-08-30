@@ -1,0 +1,49 @@
+{
+  "testsuites": {
+    "$": {
+      "name": "Mocha Tests",
+      "time": "129.3960",
+      "tests": "20",
+      "failures": "1"
+    },
+    "testsuite": [
+      {
+        "$": {
+          "name": "Root Suite",
+          "timestamp": "2022-08-28T10:16:47",
+          "tests": "0",
+          "file": "cypress/integration/blocks/text.ordered-list.spec.js",
+          "time": "0.0000",
+          "failures": "0"
+        }
+      },
+      {
+        "$": {
+          "name": "Text - ordered list (Block level)",
+          "timestamp": "2022-08-28T10:16:49",
+          "tests": "20",
+          "time": "129.3960",
+          "failures": "1"
+        },
+        "testcase": [
+          {
+            "$": {
+              "name": "Text - ordered list (Block level) is flaky",
+              "time": "6.1630",
+              "classname": "is flaky"
+            },
+            "failure": [
+              {
+                "_": "AssertionError: expected 0.49797727318991925 to be above 0.5 at Context.eval (http://localhost:9666/__cypress/tests?p=cypress/integration/blocks/text.ordered-list.spec.js:115:22)",
+                "$": {
+                  "message": "expected 0.49797727318991925 to be above 0.5",
+                  "type": "AssertionError"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
