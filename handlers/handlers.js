@@ -28,8 +28,12 @@ module.exports = {
 
   getTestCase(testCase, suite) {
     const testCaseMetaData = testCase['$']
+    const failureMessage = testCase?.['failure']?.[0]?.['_']
     return {
       name: testCaseMetaData.name,
+      passed: !!failureMessage,
+      failureMessage: failureMessage,
+      suiteRunTimeStamp: '2022-07-01',
       ...suite,
     }
   },
