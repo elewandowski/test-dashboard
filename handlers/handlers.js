@@ -1,5 +1,5 @@
 module.exports = {
-  requestToTestCases(req) {
+  requestToTestRuns(req) {
     const suites = this.requestBodyToSuiteObjects(req.body)
     const suite = suites[1]
     const suiteMetaData = this.getSuiteMetaData(suites[0], suites[1])

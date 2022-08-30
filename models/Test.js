@@ -7,6 +7,6 @@ const testSchema = new mongoose.Schema({
   suiteFilePath: { type: String },
 })
 
-const Test = mongoose.model('testSchema', testSchema)
+const Test = mongoose.model('Test', testSchema)
 
 module.exports = Test

@@ -12,6 +12,6 @@ const testRun = new mongoose.Schema({
   cypressRun: { type: Schema.Types.ObjectId, ref: 'CypressRun' },
 })
 
-const TestRun = mongoose.model('testRun', testRun)
+const TestRun = mongoose.model('TestRun', testRun)
 
 module.exports = TestRun
