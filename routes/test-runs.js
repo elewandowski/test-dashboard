@@ -7,27 +7,61 @@ const xmlTestReportParser = require('../utils/xmlTestReportParser')
 
 router
   .get('/', async (req, res) => {
-    const testQueryResult = await Test.findOne({
-      name: 'Text - ordered list (Block level) is flaky',
-    }).exec()
+    // const testRuns = await TestRun.aggregate([
+    //   {
+    //     $match: { suiteRunTimeStamp: { $gte: new Date('2022-07-01') } },
+    //   },
+    //   {
+    //     $count: 'total count',
+    //   },
+    // ]).exec()
 
-    const testRunsFailing = await TestRun.find({
-      test: testQueryResult?._id,
-      // figure out suite run timestamp
-      suiteRunTimeStamp: { $gte: '2022-07-01' },
-      failureMessage: { $exists: true },
-    })
-      .populate('test')
-      .exec()
+    const distinctTestRuns = await TestRun.distinct('test').exec()
 
-    const testRunsTotal = await TestRun.find({
-      test: testQueryResult?._id,
-      suiteRunTimeStamp: { $gte: '2022-07-01' },
-    })
-      .populate('test')
-      .exec()
+    let outString = ''
 
-    const outString = `${testRunsFailing.length}/${testRunsTotal.length} are failing`
+    for (const distinctTestRun of distinctTestRuns) {
+      console.log(distinctTestRun)
+      const test = await Test.findById(distinctTestRun)
+      console.log(test)
+
+      const totalTestRuns = await TestRun.find({
+        test: distinctTestRun,
+      }).exec()
+
+      console.log(totalTestRuns.length)
+
+      const failingTestRuns = await TestRun.find({
+        test: distinctTestRun,
+        passed: false,
+      }).exec()
+
+      outString += `${failingTestRuns.length}/${totalTestRuns.length} test runs failing for test "${test?.name}"\n`
+    }
+
+    // console.log(distinctTestRuns)
+    // const testQueryResult = await Test.findOne({
+    //   name: 'Text - ordered list (Block level) is flaky',
+    // }).exec()
+
+    // const testRunsFailing = await TestRun.find({
+    //   test: testQueryResult?._id,
+    //   // figure out suite run timestamp
+    //   suiteRunTimeStamp: { $gte: '2022-07-01' },
+    //   failureMessage: { $exists: true },
+    // })
+    //   .populate('test')
+    //   .exec()
+
+    // const testRunsTotal = await TestRun.find({
+    //   test: testQueryResult?._id,
+    //   suiteRunTimeStamp: { $gte: '2022-07-01' },
+    // })
+    //   .populate('test')
+    //   .exec()
+
+    // const outString = `${testRunsFailing.length}/${testRunsTotal.length} are failing`
+    // const outString = `${testRuns} total test runs found`
 
     res.render('test-runs', {
       output: outString,
