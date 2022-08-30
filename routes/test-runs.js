@@ -3,7 +3,7 @@ const router = express.Router()
 const CypressRun = require('../models/CypressRun')
 const Test = require('../models/Test')
 const TestRun = require('../models/TestRun')
-const handlers = require('../handlers/handlers')
+const xmlTestReportParser = require('../utils/xmlTestReportParser')
 
 router
   .get('/', async (req, res) => {
@@ -44,7 +44,7 @@ router
      *
      */
 
-    const testRuns = handlers.requestToTestRuns(req)
+    const testRuns = xmlTestReportParser.requestToTestRuns(req)
 
     testRuns.forEach(async (testRun) => {
       const testAlreadyExists = await Test.findOne({
@@ -57,11 +57,15 @@ router
           ...testRun,
         }).save()
       } else {
-        await new Test(testRun).save()
+        const newTest = await new Test(testRun).save()
+        await new TestRun({
+          test: newTest._id,
+          ...testRun,
+        }).save()
       }
     })
 
-    res.send(200)
+    res.sendStatus(200)
   })
 
 module.exports = router
