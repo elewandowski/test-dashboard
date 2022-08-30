@@ -18,7 +18,7 @@ module.exports = {
     return {
       suiteName: metaData.name,
       suiteFilePath: rootSuiteMetaData.file,
-      suiteRunTimestamp: metaData.timestamp,
+      runTimestamp: metaData.timestamp,
     }
   },
 
@@ -34,7 +34,7 @@ module.exports = {
       name: testRunMetaData.name,
       passed: !failureMessage,
       failureMessage: failureMessage,
-      suiteRunTimeStamp: suite.timestamp,
+      suiteRunTimeStamp: suite.runTimestamp,
       ...suite,
     }
   },

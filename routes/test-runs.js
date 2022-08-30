@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const CypressRun = require('../models/CypressRun')
+// const CypressRun = require('../models/CypressRun')
 const Test = require('../models/Test')
 const TestRun = require('../models/TestRun')
 const xmlTestReportParser = require('../utils/xmlTestReportParser')
@@ -13,6 +13,7 @@ router
 
     const testRunsFailing = await TestRun.find({
       test: testQueryResult?._id,
+      // figure out suite run timestamp
       suiteRunTimeStamp: { $gte: '2022-07-01' },
       failureMessage: { $exists: true },
     })
@@ -46,24 +47,25 @@ router
 
     const testRuns = xmlTestReportParser.requestToTestRuns(req)
 
-    testRuns.forEach(async (testRun) => {
+    for (const testRun of testRuns) {
       const testAlreadyExists = await Test.findOne({
         name: testRun.name,
       }).exec()
 
       if (testAlreadyExists) {
-        await new TestRun({
+        await TestRun.create({
           test: testAlreadyExists._id,
           ...testRun,
-        }).save()
+        })
       } else {
-        const newTest = await new Test(testRun).save()
-        await new TestRun({
+        const newTest = new Test(testRun)
+        await newTest.save()
+        await TestRun.create({
           test: newTest._id,
           ...testRun,
-        }).save()
+        })
       }
-    })
+    }
 
     res.sendStatus(200)
   })
