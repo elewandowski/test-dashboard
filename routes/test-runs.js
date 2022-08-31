@@ -16,52 +16,41 @@ router
     //   },
     // ]).exec()
 
-    const distinctTestRuns = await TestRun.distinct('test').exec()
+    const countDistinctPassedAndFailed = await TestRun.aggregate([
+      {
+        // get all tests runs between timestamps
+        $match: {
+          suiteRunTimeStamp: { $gte: new Date('2022-07-01') },
+        },
+      },
+      {
+        // for each test run, add 'passed' field, if test passed, and failed field, if test failed
+        $project: {
+          test: 1,
+          passed: {
+            $cond: [{ $eq: ['$passed', true] }, 1, 0],
+          },
+          failed: {
+            $cond: [{ $eq: ['$passed', false] }, 1, 0],
+          },
+        },
+      },
+      {
+        // group all test runs by test ID, and count the passed and failed fields
+        $group: {
+          _id: '$test',
+          countPassed: { $sum: '$passed' },
+          countFailed: { $sum: '$failed' },
+        },
+      },
+    ])
+
+    console.log(countDistinctPassedAndFailed)
+
+    // const distinctTestRuns = await TestRun.distinct('test').exec()
 
     let outString = ''
-
-    for (const distinctTestRun of distinctTestRuns) {
-      console.log(distinctTestRun)
-      const test = await Test.findById(distinctTestRun)
-      console.log(test)
-
-      const totalTestRuns = await TestRun.find({
-        test: distinctTestRun,
-      }).exec()
-
-      console.log(totalTestRuns.length)
-
-      const failingTestRuns = await TestRun.find({
-        test: distinctTestRun,
-        passed: false,
-      }).exec()
-
-      outString += `${failingTestRuns.length}/${totalTestRuns.length} test runs failing for test "${test?.name}"\n`
-    }
-
-    // console.log(distinctTestRuns)
-    // const testQueryResult = await Test.findOne({
-    //   name: 'Text - ordered list (Block level) is flaky',
-    // }).exec()
-
-    // const testRunsFailing = await TestRun.find({
-    //   test: testQueryResult?._id,
-    //   // figure out suite run timestamp
-    //   suiteRunTimeStamp: { $gte: '2022-07-01' },
-    //   failureMessage: { $exists: true },
-    // })
-    //   .populate('test')
-    //   .exec()
-
-    // const testRunsTotal = await TestRun.find({
-    //   test: testQueryResult?._id,
-    //   suiteRunTimeStamp: { $gte: '2022-07-01' },
-    // })
-    //   .populate('test')
-    //   .exec()
-
-    // const outString = `${testRunsFailing.length}/${testRunsTotal.length} are failing`
-    // const outString = `${testRuns} total test runs found`
+    outString += JSON.stringify(countDistinctPassedAndFailed, undefined, 2)
 
     res.render('test-runs', {
       output: outString,
