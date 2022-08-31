@@ -45,6 +45,8 @@ router
       },
     ])
 
+    await Test.populate(countDistinctPassedAndFailed, { path: '_id' })
+
     console.log(countDistinctPassedAndFailed)
 
     // const distinctTestRuns = await TestRun.distinct('test').exec()

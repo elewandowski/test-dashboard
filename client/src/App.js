@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import logo from './logo.svg'
 import './App.css'
+import Table from './components/Table.js'
 
 function App() {
   const [response, setResponse] = useState(0)
@@ -19,14 +20,8 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {JSON.stringify(response)}
-        </a>
+
+        <Table data={response}></Table>
       </header>
     </div>
   )
