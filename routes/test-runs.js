@@ -24,7 +24,7 @@ router
         },
       },
       {
-        // for each test run, add 'passed' field, if test passed, and failed field, if test failed
+        // for each test run, add 'passed' field, if test passed; and failed field, if test failed
         $project: {
           test: 1,
           passed: {
