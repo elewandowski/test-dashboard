@@ -43,6 +43,11 @@ router
           countFailed: { $sum: '$failed' },
         },
       },
+      {
+        $sort: {
+          countFailed: -1,
+        },
+      },
     ])
 
     await Test.populate(countDistinctPassedAndFailed, { path: '_id' })
