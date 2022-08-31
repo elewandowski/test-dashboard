@@ -49,12 +49,10 @@ router
 
     // const distinctTestRuns = await TestRun.distinct('test').exec()
 
-    let outString = ''
-    outString += JSON.stringify(countDistinctPassedAndFailed, undefined, 2)
+    // let outString = ''
+    // outString += JSON.stringify(countDistinctPassedAndFailed, undefined, 2)
 
-    res.render('test-runs', {
-      output: outString,
-    })
+    res.json(countDistinctPassedAndFailed)
   })
   .post('/', async (req, res) => {
     // const cyRun = new CypressRun({ name: req.body })

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "yarn nodemon node ./bin/www"
+    "startAPI": "yarn nodemon node ./bin/www",
+    "start": "concurrently 'npm run startAPI' 'cd client && npm start'"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -19,6 +20,7 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
+    "concurrently": "^7.3.0",
     "nodemon": "^2.0.19"
   }
 }
