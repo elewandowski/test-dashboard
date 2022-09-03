@@ -19,7 +19,12 @@ const Table = (props) => {
   const nodes = props.data ? props.data : []
   console.log(nodes)
 
-  return <CompactTable columns={COLUMNS} data={{ nodes }} />
+  return (
+    <div>
+      <h1>Latest flaky runs</h1>
+      <CompactTable columns={COLUMNS} data={{ nodes }} />
+    </div>
+  )
   //   return <div />
 }
 
