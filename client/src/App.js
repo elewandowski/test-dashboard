@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import './App.css'
-import Table from './components/Table.js'
+import './App.scss'
+import Table from './components/Table/Table.js'
+import Sidebar from './components/Sidebar/Sidebar'
 
 function App() {
   const [response, setResponse] = useState(0)
@@ -13,11 +14,10 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Test Dashboard</h1>
-
+      <Sidebar></Sidebar>
+      <main>
         <Table data={response}></Table>
-      </header>
+      </main>
     </div>
   )
 }

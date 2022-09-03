@@ -1,7 +1,7 @@
 import { CompactTable } from '@table-library/react-table-library/compact'
 import React from 'react'
 
-import './Table.css'
+import './Table.scss'
 
 const COLUMNS = [
   { label: 'TestName', renderCell: (item) => item._id.name },
