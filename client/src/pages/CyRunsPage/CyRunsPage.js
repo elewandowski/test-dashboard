@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import PageShell from '../PageShell/PageShell'
+import PageShell from '../../components/PageShell/PageShell'
 
 function CyRunsPage() {
   return (

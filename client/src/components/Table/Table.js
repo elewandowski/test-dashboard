@@ -20,6 +20,12 @@ const COLUMNS = [
 const Table = (props) => {
   const nodes = props.data ? props.data : []
 
+  // to solve react error: all list items must have a unique id
+  nodes.forEach((node) => {
+    node.id = node._id._id
+  })
+  //
+
   const theme = useTheme([
     getTheme(),
     {

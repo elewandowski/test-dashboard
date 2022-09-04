@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './FlakyTestsPage.scss'
-import PageShell from '../PageShell/PageShell'
+import PageShell from '../../components/PageShell/PageShell'
 import Table from '../../components/Table/Table'
 
 function FlakyTestsPage() {
