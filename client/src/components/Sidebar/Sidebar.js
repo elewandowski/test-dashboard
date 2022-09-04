@@ -6,7 +6,7 @@ import './Sidebar.scss'
 function Sidebar(props) {
   return (
     <div className="Sidebar">
-      <Link to="/cy-runs">
+      <Link to="/">
         <h1>Test Dashboard</h1>
       </Link>
       <ul>

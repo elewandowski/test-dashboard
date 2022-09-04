@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import './Flaky-tests.scss'
-import PageShell from '../Page-shell/Page-shell'
+import './FlakyTestsPage.scss'
+import PageShell from '../PageShell/PageShell'
 import Table from '../../components/Table/Table'
 
 function FlakyTestsPage() {
@@ -13,7 +13,7 @@ function FlakyTestsPage() {
   }, [])
 
   return (
-    <div className="Flaky-tests-page">
+    <div className="FlakyTestsPage">
       <PageShell>
         <Table data={response}></Table>
       </PageShell>

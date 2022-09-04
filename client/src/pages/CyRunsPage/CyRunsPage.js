@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import PageShell from '../Page-shell/Page-shell'
+import PageShell from '../PageShell/PageShell'
 
 function CyRunsPage() {
   return (
-    <div className="cy-runs-page">
+    <div className="CyRunsPage">
       <PageShell>
         <h1> Cy Runs Page</h1>
       </PageShell>
