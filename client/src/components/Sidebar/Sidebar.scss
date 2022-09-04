@@ -2,14 +2,10 @@
   width: 200px;
   height: 100%;
   position: fixed;
-  background-color: cornflowerblue;
-
-  h1 {
-    font-size: medium;
-    text-align: center;
-  }
+  background-color: rgb(209, 222, 245);
 
   li {
+    margin: 8px 0;
     color: black;
   }
 }

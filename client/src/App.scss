@@ -1,4 +1,16 @@
+body {
+  background-color: #fffffffa;
+}
+
 .App {
+  a {
+    &:link {
+      color: blue;
+    }
+    &:visited {
+      color: blue;
+    }
+  }
 }
 
 .App-logo {
