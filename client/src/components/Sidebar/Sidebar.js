@@ -1,14 +1,21 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import './Sidebar.scss'
 
 function Sidebar(props) {
   return (
     <div className="Sidebar">
-      <h1>Test Dashboard</h1>
+      <Link to="/cy-runs">
+        <h1>Test Dashboard</h1>
+      </Link>
       <ul>
-        <li>Runs view</li>
-        <li>Flaky view</li>
+        <li>
+          <Link to="/cy-runs">Cypress Runs</Link>
+        </li>
+        <li>
+          <Link to="/flaky-tests"> Flaky tests</Link>
+        </li>
       </ul>
     </div>
   )

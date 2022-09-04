@@ -1,25 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import FlakyTestsPage from './pages/Flaky-tests/Flaky-tests'
+import { Routes, Route } from 'react-router-dom'
 import './App.scss'
-import Header from './components/Header/Header.js'
-import Table from './components/Table/Table.js'
-import Sidebar from './components/Sidebar/Sidebar'
 
 function App() {
-  const [response, setResponse] = useState(0)
-
-  useEffect(() => {
-    fetch('/test-runs')
-      .then((res) => res.json())
-      .then((r) => setResponse(r))
-  }, [])
-
   return (
     <div className="App">
-      <Header></Header>
-      <Sidebar></Sidebar>
-      <main>
-        <Table data={response}></Table>
-      </main>
+      <Routes>
+        <Route path="/" element={<FlakyTestsPage />} />
+        <Route path="/cy-runs" element={<FlakyTestsPage />} />
+        <Route path="/flaky-tests" element={<FlakyTestsPage />} />
+      </Routes>
     </div>
   )
 }
