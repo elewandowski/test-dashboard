@@ -16,11 +16,19 @@ router
     //   },
     // ]).exec()
 
+    const startDate = req.query.startDate
+    const endDate = req.query.endDate
+
+    console.log(startDate, endDate)
+
     const countDistinctPassedAndFailed = await TestRun.aggregate([
       {
         // get all tests runs between timestamps
         $match: {
-          suiteRunTimeStamp: { $gte: new Date('2022-07-01') },
+          suiteRunTimeStamp: {
+            $gte: new Date(startDate),
+            $lte: new Date(endDate),
+          },
         },
       },
       {
