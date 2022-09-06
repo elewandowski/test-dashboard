@@ -21,7 +21,9 @@
     "sass": "^1.54.8"
   },
   "devDependencies": {
+    "bcrypt": "^5.0.1",
     "concurrently": "^7.3.0",
+    "dayjs": "^1.11.5",
     "nodemon": "^2.0.19"
   }
 }

@@ -7,19 +7,8 @@ const xmlTestReportParser = require('../utils/xmlTestReportParser')
 
 router
   .get('/', async (req, res) => {
-    // const testRuns = await TestRun.aggregate([
-    //   {
-    //     $match: { suiteRunTimeStamp: { $gte: new Date('2022-07-01') } },
-    //   },
-    //   {
-    //     $count: 'total count',
-    //   },
-    // ]).exec()
-
     const startDate = req.query.startDate
     const endDate = req.query.endDate
-
-    console.log(startDate, endDate)
 
     const countDistinctPassedAndFailed = await TestRun.aggregate([
       {
@@ -60,12 +49,7 @@ router
 
     await Test.populate(countDistinctPassedAndFailed, { path: '_id' })
 
-    console.log(countDistinctPassedAndFailed)
-
-    // const distinctTestRuns = await TestRun.distinct('test').exec()
-
-    // let outString = ''
-    // outString += JSON.stringify(countDistinctPassedAndFailed, undefined, 2)
+    // console.log(countDistinctPassedAndFailed)
 
     res.json(countDistinctPassedAndFailed)
   })

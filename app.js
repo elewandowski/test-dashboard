@@ -8,6 +8,18 @@ const xmlparser = require('express-xml-bodyparser')
 
 const indexRouter = require('./routes/index')
 const testRunsRouter = require('./routes/test-runs')
+const loginRouter = require('./routes/login')
+
+const requireAuth = (req, res, next) => {
+  if (req.user) {
+    next()
+  } else {
+    res.render('login', {
+      message: 'Please login to continue',
+      messageClass: 'alert-danger',
+    })
+  }
+}
 
 const app = express()
 
@@ -29,8 +41,19 @@ async function main() {
   app.use(cookieParser())
   app.use(express.static(path.join(__dirname, 'public')))
 
+  app.use((req, res, next) => {
+    // Get auth token from the cookies
+    const authToken = req.cookies['AuthToken']
+
+    // Inject the user to the request
+    req.user = authTokens[authToken]
+
+    next()
+  })
+
   app.use('/', indexRouter)
   app.use('/test-runs', testRunsRouter)
+  app.use('/login', loginRouter)
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
