@@ -11,7 +11,10 @@ function Sidebar(props) {
           <Link to="/cy-runs">Cypress Runs</Link>
         </li>
         <li>
-          <Link to="/flaky-tests"> Flaky tests</Link>
+          <Link to="/flaky-tests">Flaky tests</Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
         </li>
       </ul>
     </div>

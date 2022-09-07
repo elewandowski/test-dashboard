@@ -1,4 +1,4 @@
-import React from 'react'
+import { React } from 'react'
 import './PageShell.scss'
 import Header from '../Header/Header'
 import Sidebar from '../Sidebar/Sidebar'

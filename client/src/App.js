@@ -1,4 +1,5 @@
-import React from 'react'
+import { React, useState } from 'react'
+import ProtectedPageShell from './components/ProtectedPageShell/ProtectedPageShell'
 import LoginPage from './pages/Login/Login'
 import HomePage from './pages/HomePage/HomePage'
 import CyRunsPage from './pages/CyRunsPage/CyRunsPage'
@@ -12,8 +13,22 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/cy-runs" element={<CyRunsPage />} />
-        <Route path="/flaky-tests" element={<FlakyTestsPage />} />
+        <Route
+          path="/cy-runs"
+          element={
+            <ProtectedPageShell>
+              <CyRunsPage />
+            </ProtectedPageShell>
+          }
+        />
+        <Route
+          path="/flaky-tests"
+          element={
+            <ProtectedPageShell>
+              <FlakyTestsPage />
+            </ProtectedPageShell>
+          }
+        />
       </Routes>
     </div>
   )

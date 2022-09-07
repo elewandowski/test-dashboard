@@ -5,19 +5,18 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const mongoose = require('mongoose')
 const xmlparser = require('express-xml-bodyparser')
+const AuthToken = require('./models/AuthToken')
+const User = require('./models/User')
 
 const indexRouter = require('./routes/index')
 const testRunsRouter = require('./routes/test-runs')
 const loginRouter = require('./routes/login')
 
-const requireAuth = (req, res, next) => {
+const protectedRoute = (req, res, next) => {
   if (req.user) {
     next()
   } else {
-    res.render('login', {
-      message: 'Please login to continue',
-      messageClass: 'alert-danger',
-    })
+    res.redirect('/login')
   }
 }
 
@@ -41,18 +40,25 @@ async function main() {
   app.use(cookieParser())
   app.use(express.static(path.join(__dirname, 'public')))
 
-  app.use((req, res, next) => {
+  app.use(async (req, res, next) => {
     // Get auth token from the cookies
     const authToken = req.cookies['AuthToken']
+    console.log('my authToken is', authToken)
 
     // Inject the user to the request
-    req.user = authTokens[authToken]
+    const authTokenModelInstance = await AuthToken.findOne({
+      authToken,
+    })
+
+    req.user = await User.findOne({
+      _id: authTokenModelInstance.user,
+    })
 
     next()
   })
 
   app.use('/', indexRouter)
-  app.use('/test-runs', testRunsRouter)
+  app.use('/test-runs', protectedRoute, testRunsRouter)
   app.use('/login', loginRouter)
 
   // catch 404 and forward to error handler
