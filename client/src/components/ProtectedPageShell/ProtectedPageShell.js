@@ -3,9 +3,9 @@ import './ProtectedPageShell.scss'
 import { Navigate } from 'react-router-dom'
 
 function ProtectedPageShell(props) {
-  const [user, setUser] = useState()
+  const authToken = localStorage.getItem('authToken')
 
-  if (!user) {
+  if (!authToken) {
     return <Navigate to="/"></Navigate>
   }
 

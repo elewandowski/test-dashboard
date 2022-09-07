@@ -2,10 +2,14 @@ import { React, useState, useEffect } from 'react'
 import PageShell from '../../components/PageShell/PageShell'
 import { Navigate } from 'react-router-dom'
 
-function LoginPage() {
-  const [authenticated, setAuthenticaed] = useState(false)
+function LoginPage(props) {
+  const [authenticated, setAuthenticated] = useState(false)
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
+
+  useEffect(() => {
+    document.title = 'Test Dashboard Login page'
+  })
 
   function renderErrorMessage() {}
 
@@ -22,12 +26,12 @@ function LoginPage() {
     })
       .then(async (res) => {
         if (res.ok) {
-          setAuthenticaed(true)
           return res.json()
         }
       })
-      .then((res) => {
-        console.log(res)
+      .then((resBody) => {
+        localStorage.setItem('authToken', resBody.authToken)
+        setAuthenticated(true)
       })
   }
 

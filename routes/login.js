@@ -29,8 +29,7 @@ router.post('/', async (req, res) => {
       authToken: authToken,
       expiresAt,
     })
-    res.cookie('AuthToken', authToken)
-    res.send(user)
+    res.send({ authToken: authToken, user })
   } else {
     res.sendStatus(401)
   }

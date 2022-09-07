@@ -8,11 +8,13 @@ import { Routes, Route } from 'react-router-dom'
 import './App.scss'
 
 function App() {
+  const [authToken, setAuthToken] = useState()
+
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage setAuthtoken />} />
         <Route
           path="/cy-runs"
           element={
