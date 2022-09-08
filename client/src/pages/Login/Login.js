@@ -1,8 +1,10 @@
 import { React, useState, useEffect } from 'react'
 import PageShell from '../../components/PageShell/PageShell'
 import { Navigate } from 'react-router-dom'
+import axios from 'axios'
 
 function LoginPage(props) {
+  const [authenticationFailed, setAuthenticationFailed] = useState(false)
   const [authenticated, setAuthenticated] = useState(false)
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
@@ -16,23 +18,15 @@ function LoginPage(props) {
   function submitHandler(e) {
     e.preventDefault()
 
-    fetch('/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then(async (res) => {
-        if (res.ok) {
-          return res.json()
-        }
-      })
-      .then((resBody) => {
-        localStorage.setItem('authToken', resBody.authToken)
+    axios.post('/login', { email, password }).then(async (res) => {
+      if (res.status === 200) {
+        localStorage.setItem('authToken', res.data?.authToken)
+        axios.defaults.headers.common['Authorization'] = res.data?.authToken
         setAuthenticated(true)
-      })
+      } else {
+        setAuthenticationFailed(true)
+      }
+    })
   }
 
   if (authenticated) {
@@ -67,6 +61,9 @@ function LoginPage(props) {
 
             <input type="submit" />
           </form>
+          {authenticationFailed && (
+            <label>Authentication failed. Please try again.</label>
+          )}
         </PageShell>
       </div>
     )

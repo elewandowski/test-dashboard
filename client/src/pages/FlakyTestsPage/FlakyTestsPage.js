@@ -3,30 +3,34 @@ import './FlakyTestsPage.scss'
 import PageShell from '../../components/PageShell/PageShell'
 import Table from '../../components/Table/Table'
 import DateRangePicker from '../../components/DateRangePicker/DateRangePicker'
+import axios from 'axios'
 
 function FlakyTestsPage() {
   const [response, setResponse] = useState(0)
   const defaultStartDate = new Date('2022-08-01')
   const defaultEndDate = new Date()
 
-  function fetchFlakyTestRuns(fromDate, toDate) {
-    fetch(
+  function getFlakyTestRuns(fromDate, toDate) {
+    axios(
       '/test-runs?' +
         new URLSearchParams({
           startDate: fromDate.toISOString(),
           endDate: toDate.toISOString(),
         })
-    )
-      .then((res) => res.json())
-      .then((r) => setResponse(r))
+    ).then((res) => {
+      setResponse(res.data)
+    })
   }
 
   useEffect(() => {
-    fetchFlakyTestRuns(defaultStartDate, defaultEndDate)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    axios.defaults.headers.common['Authorization'] =
+      localStorage.getItem('authToken')
+    getFlakyTestRuns(defaultStartDate, defaultEndDate)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   function onDateRangePickerChange([fromDate, toDate]) {
-    fetchFlakyTestRuns(fromDate, toDate)
+    getFlakyTestRuns(fromDate, toDate)
   }
 
   return (

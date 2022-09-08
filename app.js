@@ -41,18 +41,18 @@ async function main() {
   app.use(express.static(path.join(__dirname, 'public')))
 
   app.use(async (req, res, next) => {
-    // Get auth token from the cookies
-    const authToken = req.cookies['AuthToken']
-    console.log('my authToken is', authToken)
+    // Get auth token from header
+    const authToken = req.headers?.['authorization']
+    if (typeof authToken === 'string') {
+      // Inject the user to the request
+      const authTokenModelInstance = await AuthToken.findOne({
+        authToken,
+      })
 
-    // Inject the user to the request
-    const authTokenModelInstance = await AuthToken.findOne({
-      authToken,
-    })
-
-    req.user = await User.findOne({
-      _id: authTokenModelInstance.user,
-    })
+      req.user = await User.findOne({
+        _id: authTokenModelInstance.user,
+      })
+    }
 
     next()
   })
@@ -67,7 +67,7 @@ async function main() {
   })
 
   // error handler
-  app.use(function (err, req, res, next) {
+  app.use(function (err, req, res) {
     // set locals, only providing error in development
     res.locals.message = err.message
     res.locals.error = req.app.get('env') === 'development' ? err : {}
