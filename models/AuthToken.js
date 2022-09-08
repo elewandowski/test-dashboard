@@ -1,3 +1,4 @@
+const crypto = require('node:crypto')
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 const dayjs = require('dayjs')
@@ -12,9 +13,6 @@ const authTokenSchema = new mongoose.Schema(
     methods: {
       isValid() {
         return dayjs().isBefore(dayjs(this.expiresAt))
-      },
-      invalidate() {
-        this.expiresAt = dayjs()
       },
     },
   }

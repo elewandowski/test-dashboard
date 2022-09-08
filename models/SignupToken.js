@@ -12,6 +12,10 @@ const signupTokenSchema = new mongoose.Schema(
       isValid() {
         return dayjs().isBefore(dayjs(this.expiresAt))
       },
+      invalidate(callback) {
+        this.expiresAt = dayjs().toDate()
+        this.save(callback)
+      },
     },
   }
 )

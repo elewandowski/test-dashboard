@@ -5,7 +5,7 @@ const User = require('../models/User')
 
 router
   .post('/', async function (req, res) {
-    const signupTokenDB = SignupToken.findOne({
+    const signupTokenDB = await SignupToken.findOne({
       token: req.body.signupToken,
     })
     if (signupTokenDB && signupTokenDB.isValid()) {
@@ -14,6 +14,7 @@ router
         password: req.body.password,
       })
       signupTokenDB.invalidate()
+
       res.send(user)
     } else {
       res.sendStatus(401)

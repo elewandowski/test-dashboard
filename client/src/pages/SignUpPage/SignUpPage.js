@@ -17,7 +17,7 @@ function SignUpPage(props) {
   function submitHandler(e) {
     e.preventDefault()
 
-    const signupToken = searchParams.get('signupToken')
+    const signupToken = searchParams.get('token')
 
     axios
       .post('/signup', { email, password, signupToken })
