@@ -1,5 +1,3 @@
-const dayjs = require('dayjs')
-const crypto = require('node:crypto')
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
@@ -7,29 +5,17 @@ const User = require('../models/User')
 const AuthToken = require('../models/AuthToken')
 
 router.post('/', async (req, res) => {
-  //   req.body.hashedPassword = bcrypt.hashSync(
-  //     req.body.password,
-  //     bcrypt.genSaltSync(10)
-  //   )
-
   const user = await User.findOne({
     email: req.body.email,
   })
 
-  const passwordsMatch = bcrypt.compareSync(
-    req.body.password,
-    user.hashedPassword
-  )
+  const passwordsMatch = bcrypt.compareSync(req.body.password, user.password)
 
   if (passwordsMatch) {
-    const authToken = crypto.randomBytes(30).toString('hex')
-    const expiresAt = dayjs().add(7, 'days').toDate()
-    AuthToken.create({
+    const authToken = await AuthToken.create({
       user: user._id,
-      authToken: authToken,
-      expiresAt,
     })
-    res.send({ authToken: authToken, user })
+    res.send({ authToken: authToken.authToken, user })
   } else {
     res.sendStatus(401)
   }

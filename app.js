@@ -11,12 +11,13 @@ const User = require('./models/User')
 const indexRouter = require('./routes/index')
 const testRunsRouter = require('./routes/test-runs')
 const loginRouter = require('./routes/login')
+const signupRouter = require('./routes/signup')
 
 const protectedRoute = (req, res, next) => {
   if (req.user) {
     next()
   } else {
-    res.redirect('/login')
+    res.sendStatus(401)
   }
 }
 
@@ -44,14 +45,19 @@ async function main() {
     // Get auth token from header
     const authToken = req.headers?.['authorization']
     if (typeof authToken === 'string') {
-      // Inject the user to the request
-      const authTokenModelInstance = await AuthToken.findOne({
+      const authTokenDB = await AuthToken.findOne({
         authToken,
       })
 
-      req.user = await User.findOne({
-        _id: authTokenModelInstance.user,
-      })
+      if (authTokenDB?.isValid()) {
+        const user = await User.findOne({
+          _id: authTokenDB.user,
+        })
+        if (user) {
+          // Inject the user to the request
+          req.user = user
+        }
+      }
     }
 
     next()
@@ -60,6 +66,7 @@ async function main() {
   app.use('/', indexRouter)
   app.use('/test-runs', protectedRoute, testRunsRouter)
   app.use('/login', loginRouter)
+  app.use('/signup', signupRouter)
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {

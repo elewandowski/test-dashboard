@@ -14,6 +14,9 @@ function Sidebar(props) {
           <Link to="/flaky-tests">Flaky tests</Link>
         </li>
         <li>
+          <Link to="/admin">Admin</Link>
+        </li>
+        <li>
           <Link to="/login">Login</Link>
         </li>
       </ul>

@@ -1,6 +1,8 @@
 import { React, useState } from 'react'
 import ProtectedPageShell from './components/ProtectedPageShell/ProtectedPageShell'
-import LoginPage from './pages/Login/Login'
+import AdminPage from './pages/AdminPage/AdminPage'
+import SignUpPage from './pages/SignUpPage/SignUpPage'
+import LoginPage from './pages/LoginPage/LoginPage'
 import HomePage from './pages/HomePage/HomePage'
 import CyRunsPage from './pages/CyRunsPage/CyRunsPage'
 import FlakyTestsPage from './pages/FlakyTestsPage/FlakyTestsPage'
@@ -14,7 +16,12 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage setAuthtoken />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route
+          path="/login"
+          element={<LoginPage setAuthToken={setAuthToken} />}
+        />
         <Route
           path="/cy-runs"
           element={
