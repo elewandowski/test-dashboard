@@ -3,12 +3,12 @@ import './PageShell.scss'
 import Header from '../Header/Header'
 import Sidebar from '../Sidebar/Sidebar'
 
-function PageShell(props) {
+function PageShell({ children }) {
   return (
     <div className="PageShell">
       <Header></Header>
       <Sidebar></Sidebar>
-      <main>{props.children}</main>
+      <main>{children}</main>
     </div>
   )
 }

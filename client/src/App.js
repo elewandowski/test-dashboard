@@ -16,28 +16,16 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/admin" element={<AdminPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route
           path="/login"
           element={<LoginPage setAuthToken={setAuthToken} />}
         />
-        <Route
-          path="/cy-runs"
-          element={
-            <ProtectedPageShell>
-              <CyRunsPage />
-            </ProtectedPageShell>
-          }
-        />
-        <Route
-          path="/flaky-tests"
-          element={
-            <ProtectedPageShell>
-              <FlakyTestsPage />
-            </ProtectedPageShell>
-          }
-        />
+        <Route element={<ProtectedPageShell />}>
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/cy-runs" element={<CyRunsPage />} />
+          <Route path="/flaky-tests" element={<FlakyTestsPage />} />
+        </Route>
       </Routes>
     </div>
   )

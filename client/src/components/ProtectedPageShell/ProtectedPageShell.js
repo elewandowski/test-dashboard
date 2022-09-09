@@ -1,6 +1,6 @@
 import { React, useEffect } from 'react'
 import './ProtectedPageShell.scss'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 
 import axios from 'axios'
 
@@ -16,7 +16,7 @@ function ProtectedPageShell(props) {
     return <Navigate to="/"></Navigate>
   }
 
-  return props.children
+  return <Outlet />
 }
 
 export default ProtectedPageShell

@@ -4,7 +4,7 @@ import { Navigate, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
 function SignUpPage(props) {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const [signupFailed, setSignupFailed] = useState(false)
   const [signedUp, setSignedUp] = useState(false)
   const [email, setEmail] = useState()
@@ -36,7 +36,7 @@ function SignUpPage(props) {
     return <Navigate replace to="/flaky-tests" />
   } else {
     return (
-      <div className="LoginPage">
+      <div className="SignUpPage">
         <PageShell>
           <h1>Sign up page</h1>
           <form onSubmit={submitHandler}>
@@ -46,6 +46,7 @@ function SignUpPage(props) {
               type="text"
               id="email"
               name="email"
+              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
