@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import UserContext from '../../contexts/UserContext'
 import axios from 'axios'
 
-function LoginPage(props) {
+function LoginPage() {
   const [authenticationFailed, setAuthenticationFailed] = useState(false)
   const [authenticated, setAuthenticated] = useState(false)
   const [email, setEmail] = useState()

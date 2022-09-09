@@ -12,7 +12,6 @@ import './App.scss'
 
 function App() {
   const [user, setUser] = useState()
-  const [authToken, setAuthToken] = useState()
 
   return (
     <div className="App">
@@ -20,10 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route
-            path="/login"
-            element={<LoginPage setAuthToken={setAuthToken} />}
-          />
+          <Route path="/login" element={<LoginPage />} />
           <Route element={<ProtectedPageShell />}>
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/cy-runs" element={<CyRunsPage />} />

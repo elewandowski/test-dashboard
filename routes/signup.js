@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const AuthToken = require('../models/AuthToken')
 const SignupToken = require('../models/SignupToken')
 const User = require('../models/User')
 
@@ -9,13 +10,17 @@ router
       token: req.body.signupToken,
     })
     if (signupTokenDB && signupTokenDB.isValid()) {
-      const user = User.create({
+      const user = await User.create({
         email: req.body.email,
         password: req.body.password,
       })
       signupTokenDB.invalidate()
 
-      res.send(user)
+      const authToken = await AuthToken.create({
+        user: user._id,
+      })
+
+      res.send({ authToken: authToken.authToken, user })
     } else {
       res.sendStatus(401)
     }
