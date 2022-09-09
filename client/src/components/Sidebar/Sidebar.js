@@ -17,22 +17,24 @@ function Sidebar(props) {
       {({ user, setUser }) => (
         <div className="Sidebar">
           <ul>
-            <li>
-              <Link to="/cy-runs">Cypress Runs</Link>
-            </li>
-            <li>
-              <Link to="/flaky-tests">Flaky tests</Link>
-            </li>
-            <li>
-              <Link to="/admin">Admin</Link>
-            </li>
-            <li>
-              {user ? (
-                <button onClick={(e) => logout(e, setUser)}>Log out</button>
-              ) : (
-                <Link to="/login">Log in</Link>
-              )}
-            </li>
+            {user ? (
+              <div>
+                <li>
+                  <Link to="/cy-runs">Cypress Runs</Link>
+                </li>
+                <li>
+                  <Link to="/flaky-tests">Flaky tests</Link>
+                </li>
+                <li>
+                  <Link to="/admin">Admin</Link>
+                </li>
+                <li>
+                  <button onClick={(e) => logout(e, setUser)}>Log out</button>
+                </li>
+              </div>
+            ) : (
+              <Link to="/login">Log in</Link>
+            )}
           </ul>
         </div>
       )}
