@@ -27,13 +27,13 @@ function App() {
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
         <Routes>
-          <Route exact path="/signup" element={<SignUpPage />} />
-          <Route exact path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route element={<ProtectedPageShell />}>
-            <Route exact path="/" element={<HomePage />} />
-            <Route exact path="/admin" element={<AdminPage />} />
-            <Route exact path="/cy-runs" element={<CyRunsPage />} />
-            <Route exact path="/flaky-tests" element={<FlakyTestsPage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/cy-runs" element={<CyRunsPage />} />
+            <Route path="/flaky-tests" element={<FlakyTestsPage />} />
           </Route>
           <Route path="*" element={<PageNotFoundPage />}></Route>
         </Routes>
