@@ -41,7 +41,6 @@ async function main() {
   app.use(injectUserToReq)
 
   app.use('/', indexRouter)
-
   app.use('/login', loginRouter)
   app.use('/signup', signupRouter)
   app.use('/user', authenticationProtectedRoute, userRouter)
