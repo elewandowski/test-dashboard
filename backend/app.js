@@ -5,21 +5,18 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const mongoose = require('mongoose')
 const xmlparser = require('express-xml-bodyparser')
-const AuthToken = require('./models/AuthToken')
-const User = require('./models/User')
+
+const {
+  authenticationProtectedRoute,
+  authorizationProtectedRoute,
+  injectUserToReq,
+} = require('./middleware/middleware.js')
 
 const indexRouter = require('./routes/index')
 const testRunsRouter = require('./routes/test-runs')
 const loginRouter = require('./routes/login')
 const signupRouter = require('./routes/signup')
-
-const protectedRoute = (req, res, next) => {
-  if (req.user) {
-    next()
-  } else {
-    res.sendStatus(401)
-  }
-}
+const userRouter = require('./routes/user')
 
 const app = express()
 
@@ -30,7 +27,7 @@ async function main() {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  // view engine setup
+
   app.set('views', path.join(__dirname, 'views'))
   app.set('view engine', 'pug')
 
@@ -41,32 +38,19 @@ async function main() {
   app.use(cookieParser())
   app.use(express.static(path.join(__dirname, 'public')))
 
-  app.use(async (req, res, next) => {
-    // Get auth token from header
-    const authToken = req.headers?.['authorization']
-    if (typeof authToken === 'string') {
-      const authTokenDB = await AuthToken.findOne({
-        authToken,
-      })
-
-      if (authTokenDB?.isValid()) {
-        const user = await User.findOne({
-          _id: authTokenDB.user,
-        })
-        if (user) {
-          // Inject the user to the request
-          req.user = user
-        }
-      }
-    }
-
-    next()
-  })
+  app.use(injectUserToReq)
 
   app.use('/', indexRouter)
-  app.use('/test-runs', protectedRoute, testRunsRouter)
+
   app.use('/login', loginRouter)
   app.use('/signup', signupRouter)
+  app.use('/user', authenticationProtectedRoute, userRouter)
+  app.use(
+    '/test-runs',
+    authenticationProtectedRoute,
+    authorizationProtectedRoute(['ADMIN']),
+    testRunsRouter
+  )
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {

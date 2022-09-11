@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
+const User = require('../models/User')
 
-router.get('/', (req, res) => {
-  res.sendStatus(200)
+router.get('/me', async (req, res) => {
+  res.send(req.user)
 })
+
+module.exports = router

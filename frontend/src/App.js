@@ -1,17 +1,24 @@
-import { React, useState } from 'react'
-import ProtectedPageShell from './components/ProtectedPageShell/ProtectedPageShell'
-import AdminPage from './pages/AdminPage/AdminPage'
-import SignUpPage from './pages/SignUpPage/SignUpPage'
-import LoginPage from './pages/LoginPage/LoginPage'
-import HomePage from './pages/HomePage/HomePage'
-import CyRunsPage from './pages/CyRunsPage/CyRunsPage'
-import FlakyTestsPage from './pages/FlakyTestsPage/FlakyTestsPage'
-import UserContext from './contexts/UserContext'
-import { Routes, Route } from 'react-router-dom'
-import './App.scss'
+import { React, useState, useEffect } from "react";
+import axios from "axios";
+import ProtectedPageShell from "./components/ProtectedPageShell/ProtectedPageShell";
+import AdminPage from "./pages/AdminPage/AdminPage";
+import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import HomePage from "./pages/HomePage/HomePage";
+import CyRunsPage from "./pages/CyRunsPage/CyRunsPage";
+import FlakyTestsPage from "./pages/FlakyTestsPage/FlakyTestsPage";
+import UserContext from "./contexts/UserContext";
+import { Routes, Route } from "react-router-dom";
+import "./App.scss";
 
 function App() {
-  const [user, setUser] = useState()
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    axios.get("/user/me").then((res) => {
+      setUser(res.data);
+    });
+  }, []);
 
   return (
     <div className="App">
@@ -28,7 +35,7 @@ function App() {
         </Routes>
       </UserContext.Provider>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
