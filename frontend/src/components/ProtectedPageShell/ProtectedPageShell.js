@@ -13,7 +13,7 @@ function ProtectedPageShell(props) {
   })
 
   if (!authToken) {
-    return <Navigate to="/"></Navigate>
+    return <Navigate to="/login"></Navigate>
   }
 
   return <Outlet />

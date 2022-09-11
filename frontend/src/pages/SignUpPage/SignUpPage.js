@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState } from 'react'
 import PageShell from '../../components/PageShell/PageShell'
 import { Navigate, useSearchParams } from 'react-router-dom'
 import UserContext from '../../contexts/UserContext'
@@ -10,10 +10,6 @@ function SignUpPage(props) {
   const [signedUp, setSignedUp] = useState(false)
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
-
-  useEffect(() => {
-    document.title = 'Sign up page'
-  })
 
   function submitHandler(e, setUser) {
     e.preventDefault()

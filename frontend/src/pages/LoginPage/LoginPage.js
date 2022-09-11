@@ -10,10 +10,6 @@ function LoginPage() {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
-  useEffect(() => {
-    document.title = 'Test Dashboard Login page'
-  })
-
   function submitHandler(e, setUser) {
     e.preventDefault()
 
