@@ -1,0 +1,29 @@
+{
+  "name": "test-dashboard",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "startAPI": "yarn nodemon node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "eslint": "^8.23.0",
+    "express": "~4.16.1",
+    "express-xml-bodyparser": "^0.3.0",
+    "http-errors": "~1.6.3",
+    "mongodb": "^4.9.0",
+    "mongoose": "^6.5.3",
+    "morgan": "~1.9.1",
+    "prettier": "^2.7.1",
+    "pug": "2.0.0-beta11",
+    "sass": "^1.54.8"
+  },
+  "devDependencies": {
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "concurrently": "^7.3.0",
+    "dayjs": "^1.11.5",
+    "nodemon": "^2.0.19"
+  }
+}
