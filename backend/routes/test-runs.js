@@ -49,8 +49,6 @@ router
 
     await Test.populate(countDistinctPassedAndFailed, { path: '_id' })
 
-    // console.log(countDistinctPassedAndFailed)
-
     res.json(countDistinctPassedAndFailed)
   })
   .post('/', async (req, res) => {
