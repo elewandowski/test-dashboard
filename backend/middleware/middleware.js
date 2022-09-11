@@ -32,7 +32,6 @@ module.exports = {
   injectUserToReq: async (req, res, next) => {
     // Get auth token from header
     const authToken = req.headers?.['authorization']
-    console.log(authToken)
 
     if (typeof authToken === 'string') {
       const authTokenDB = await AuthToken.findOne({
@@ -40,18 +39,15 @@ module.exports = {
       })
 
       if (authTokenDB?.isValid()) {
-        console.log('authtoken is valid')
         const user = await User.findOne({
           _id: authTokenDB.user,
         }).select('-password')
 
         if (user) {
-          console.log(user)
           // Inject the user to the request
           req.user = user
         }
       }
-      console.log('authtoken is not valid')
     }
 
     next()

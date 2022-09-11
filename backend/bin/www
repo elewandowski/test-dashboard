@@ -31,7 +31,7 @@ server.on('listening', onListening)
 
 // Using a single function to handle multiple signals
 function handleProcessSignals(signal) {
-  console.log(`Received ${signal}. Ending the process.`)
+  console.info(`Received ${signal}. Ending the process.`)
 
   server.close()
   process.exit(0)
@@ -41,7 +41,7 @@ process.on('SIGINT', handleProcessSignals)
 process.on('SIGTERM', handleProcessSignals)
 process.on('exit', function () {
   // You need to use a synchronous, blocking function, here.
-  // Not streams or even console.log, which are non-blocking.
+  // Not streams or even console (dot) log, which are non-blocking.
 })
 
 /**
