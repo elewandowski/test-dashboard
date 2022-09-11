@@ -5,7 +5,7 @@ function HomePage() {
   return (
     <div className="HomePage">
       <PageShell>
-        <p>Welcome to the Test Dashboard</p>
+        <h1>Welcome to the Test Dashboard</h1>
       </PageShell>
     </div>
   )

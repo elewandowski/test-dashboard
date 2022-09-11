@@ -36,6 +36,7 @@ function FlakyTestsPage() {
   return (
     <div className="FlakyTestsPage">
       <PageShell>
+        <h1>Latest flaky runs</h1>
         <DateRangePicker
           onChange={onDateRangePickerChange}
           defaultValue={[defaultStartDate, defaultEndDate]}

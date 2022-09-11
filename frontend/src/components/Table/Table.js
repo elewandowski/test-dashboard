@@ -35,7 +35,6 @@ const Table = (props) => {
 
   return (
     <div>
-      <h1>Latest flaky runs</h1>
       <CompactTable
         columns={COLUMNS}
         data={{ nodes }}
