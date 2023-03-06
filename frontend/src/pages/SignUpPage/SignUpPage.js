@@ -1,13 +1,13 @@
 import { React, useState } from 'react'
 import PageShell from '../../components/PageShell/PageShell'
-import { Navigate, useSearchParams, redirect } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import UserContext from '../../contexts/UserContext'
 import axios from 'axios'
 
 function SignUpPage(props) {
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const [signupFailed, setSignupFailed] = useState(false)
-  const [signedUp, setSignedUp] = useState(false)
+  const [errorMessage, setErrorMessage] = useState()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
@@ -24,15 +24,15 @@ function SignUpPage(props) {
 
           setUser(res.data.user)
           axios.defaults.headers.common['Authorization'] = res.data?.authToken
-          redirect('/flaky-tests')
+          navigate('/flaky-tests')
         }
       })
       .catch((error) => {
-        setSignupFailed(true)
+        console.log(error)
+        setErrorMessage(error.response.data)
       })
   }
 
-  console.log(signupFailed)
   return (
     <UserContext.Consumer>
       {({ user, setUser }) => (
@@ -65,7 +65,7 @@ function SignUpPage(props) {
 
               <input type="submit" />
             </form>
-            {signupFailed && <label>Signup failed. Please try again.</label>}
+            {errorMessage && <label>Error: {errorMessage}</label>}
           </PageShell>
         </div>
       )}
