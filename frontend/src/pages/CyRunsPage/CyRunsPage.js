@@ -5,7 +5,7 @@ function CyRunsPage() {
   return (
     <div className="CyRunsPage">
       <PageShell>
-        <h1> Cy Runs Page</h1>
+        <h1> Cy Runs</h1>
       </PageShell>
     </div>
   )

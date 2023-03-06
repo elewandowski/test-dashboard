@@ -44,12 +44,7 @@ async function main() {
   app.use('/login', loginRouter)
   app.use('/signup', signupRouter)
   app.use('/user', authenticationProtectedRoute, userRouter)
-  app.use(
-    '/test-runs',
-    authenticationProtectedRoute,
-    authorizationProtectedRoute(['ADMIN']),
-    testRunsRouter
-  )
+  app.use('/test-runs', authenticationProtectedRoute, testRunsRouter)
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {

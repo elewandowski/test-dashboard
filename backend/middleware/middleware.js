@@ -24,7 +24,7 @@ module.exports = {
       if (userHasAuthorization) {
         next()
       } else {
-        res.sendStatus(401)
+        res.status(401).send(`${requiredAuthorizations} authorization required`)
       }
     }
   },

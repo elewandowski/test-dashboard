@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 import PageShell from '../../components/PageShell/PageShell'
-import { Navigate, useSearchParams } from 'react-router-dom'
+import { Navigate, useSearchParams, redirect } from 'react-router-dom'
 import UserContext from '../../contexts/UserContext'
 import axios from 'axios'
 
@@ -24,55 +24,53 @@ function SignUpPage(props) {
 
           setUser(res.data.user)
           axios.defaults.headers.common['Authorization'] = res.data?.authToken
-          setSignedUp(true)
-        } else {
-          setSignupFailed(true)
+          redirect('/flaky-tests')
         }
+      })
+      .catch((error) => {
+        setSignupFailed(true)
       })
   }
 
-  if (signedUp) {
-    return <Navigate replace to="/flaky-tests" />
-  } else {
-    return (
-      <UserContext.Consumer>
-        {({ user, setUser }) => (
-          <div className="SignUpPage">
-            <PageShell>
-              <h1>Sign up page</h1>
-              <form onSubmit={(e) => submitHandler(e, setUser)}>
-                <label>Email:</label>
+  console.log(signupFailed)
+  return (
+    <UserContext.Consumer>
+      {({ user, setUser }) => (
+        <div className="SignUpPage">
+          <PageShell>
+            <h1>Sign up</h1>
+            <form onSubmit={(e) => submitHandler(e, setUser)}>
+              <label>Email:</label>
+              <br />
+              <input
+                type="text"
+                id="email"
+                name="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <br />
+              <div className="input-container">
+                <label>Password </label>
                 <br />
                 <input
-                  type="text"
-                  id="email"
-                  name="email"
+                  type="password"
+                  name="pass"
                   required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <br />
-                <div className="input-container">
-                  <label>Password </label>
-                  <br />
-                  <input
-                    type="password"
-                    name="pass"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
+              </div>
 
-                <input type="submit" />
-              </form>
-              {signupFailed && <label>Signup failed. Please try again.</label>}
-            </PageShell>
-          </div>
-        )}
-      </UserContext.Consumer>
-    )
-  }
+              <input type="submit" />
+            </form>
+            {signupFailed && <label>Signup failed. Please try again.</label>}
+          </PageShell>
+        </div>
+      )}
+    </UserContext.Consumer>
+  )
 }
 
 export default SignUpPage

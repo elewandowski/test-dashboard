@@ -33,6 +33,7 @@ function LoginPage() {
         {({ user, setUser }) => (
           <div className="LoginPage">
             <PageShell>
+              <h1>Log in</h1>
               <form onSubmit={(e) => submitHandler(e, setUser)}>
                 <label>Email:</label>
                 <br />
