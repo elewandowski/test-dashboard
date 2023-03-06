@@ -28,7 +28,6 @@ function SignUpPage(props) {
         }
       })
       .catch((error) => {
-        console.log(error)
         setErrorMessage(error.response.data)
       })
   }
